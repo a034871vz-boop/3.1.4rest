@@ -1,0 +1,51 @@
+GET http://91.241.64.178:7081/api/users
+Content-Type: application/json
+
+> {%
+client.global.set("cookie", response.headers.valueOf("Set-Cookie"));
+%}
+
+###
+
+POST http://91.241.64.178:7081/api/users
+Content-Type: application/json
+Cookie: cookie;
+
+{
+  "id" : 3,
+  "name" : "James",
+  "lastName" : "Brown",
+  "age" : 20
+}
+> {%
+client.log("first part: " + response.body);
+%}
+
+###
+
+PUT http://91.241.64.178:7081/api/users
+Content-Type: application/json
+Cookie: cookie;
+
+{
+  "id" : 3,
+  "name" : "Thomas",
+  "lastName" : "Shelby",
+  "age" : 20
+}
+> {%
+client.log("second part: " + response.body);
+%}
+
+###
+
+DELETE http://91.241.64.178:7081/api/users/3
+Content-Type: application/json
+Cookie: cookie;
+
+> {%
+client.log("third part: " + response.body);
+%}
+
+
+
